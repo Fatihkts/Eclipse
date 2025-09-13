@@ -1,71 +1,70 @@
-# Eclipse
 
-## Contrat Deploy:
+```markdown
+Anoma Protocol – Technologies Overview
 
-```console
-# altta ki curl ile başlayan komutu girdikten sonra 1 i seçelim:
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source "$HOME/.cargo/env"
+Anoma is a next-generation, privacy-preserving blockchain protocol designed around *intent-centric architecture* and advanced cryptographic frameworks.
 
-# solana cli kurulumu - komutları tek tek kullanalım.
-sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
-PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
-solana config set --url https://staging-rpc.dev.eclipsenetwork.xyz
+---
 
-# bu komut sonrası => key oluşacak, şifre belirleyip mnemonicleri ve cüzdan adresini kaydediyoruz
-solana-keygen new
+✨ Core Technologies
 
-# bu komutta cüzdana token alıyoruz
-solana airdrop 10
+🔐 1. Zero-Knowledge Proofs (ZKP)
+Anoma leverages advanced zk-SNARKs to ensure full transaction privacy while maintaining validity.  
+- *Purpose:* Validity without revealing data  
+- *Tool:* [arkworks](https://github.com/arkworks-rs)
 
-# komut çalışması için 8 ram lazım 
-solana-test-validator
-# komut çalışınca ctrl c ile durdurabilirsiniz.
+---
 
-# nodejs kurulumu - komutları tek tek kullanalım
-sudo apt-get install -y ca-certificates curl gnupg
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+🧠 2. Intent-Centric Architecture
+Users express *what* they want (intents), not *how*.  
+Solvers find valid counter-intents and match them.
 
-NODE_MAJOR=20
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-sudo apt-get update
-sudo apt-get install nodejs -y
-
-# kontrat deploy işlemini gerçekleştirelim
-git clone https://github.com/solana-labs/example-helloworld
-cd example-helloworld
-npm install
-
-# burda biraz bekletecek rusttan dolayı - uzun sürebilir.
-npm run build:program-rust
-
-# program id not edin - FORMDA SONRADAN BU ID KULLANACAKSINIZ
-solana program deploy dist/program/helloworld.so
-npm run start
-# success çıktısı verecek en sonda.
-
+```mermaid
+graph TD
+  A[User Intent] --> B[Solver Match]
+  B --> C[Transaction Creation]
+  C --> D[Block Inclusion]
 ```
 
-## Bridge işlemi:
+---
 
-```console
-sudo apt update -y && sudo apt upgrade -y
-sudo apt install git
+🧩 3. MASP – Multi-Asset Shielded Pool
+A unified, privacy-preserving asset pool supporting:
+- Any asset
+- Private transfers
+- Swaps, barters
 
-git clone https://github.com/Eclipse-Laboratories-Inc/testnet-deposit.git
-cd testnet-deposit
+> Based on Zcash-style shielded transfers, extended to multi-asset/multi-party environments.
 
-yarn install
-yarn add ethers
+---
 
-# Altta ki komutu düzenleyelim (tırnakları kaldırın):
-node deposit.js <solanaAdresi> 0x7C9e161ebe55000a3220F972058Fb83273653a6e 500000 100 <MetamaskPrivateKeyi> https://rpc.sepolia.org
-# solana cüzdanı yukarıda oluşturduk onu import edin yeni profilde.
-```
+⚖️ 4. Taiga – zkRollup for Private Bartering
+Taiga enables scalable, zero-knowledge execution of:
+- Atomic swaps
+- Multi-party barters
+- Shielded liquidity
 
-> başarılıysa success ve tx çıktısı verecek
+---
 
-> https://explorer.dev.eclipsenetwork.xyz/?cluster=testnet burdan solana cüzdanı kontrol edip eth var mı yok mu bakıyoruz. varsa ok.
 
-> Formu doldurun: https://docs.google.com/forms/d/e/1FAIpQLSfJQCFBKHpiy2HVw9lTjCj7k0BqNKnP6G1cd0YdKhaPLWD-AA/viewform
+🧩 5. Ferveo – Decentralized, Private Block Scheduling
+A privacy-focused leader election protocol that hides:
+- Who proposes a block
+- When it's scheduled
+
+Protects against censorship and front-running.
+
+---
+
+🔄 6. Intent Gossip & Solver Network
+Decentralized p2p network for:
+- Broadcasting user intents
+- Solver matchmaking
+- Building atomic multi-party transactions
+
+---
+
+🧮 7. Homomorphic Encryption (Future)
+Exploration for private computation without decryption.
+
+---
