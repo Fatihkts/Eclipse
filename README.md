@@ -1,5 +1,4 @@
 
-```markdown
 Anoma Protocol – Technologies Overview
 
 Anoma is a next-generation, privacy-preserving blockchain protocol designed around *intent-centric architecture* and advanced cryptographic frameworks.
